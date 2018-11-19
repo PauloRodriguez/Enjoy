@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { NavController, IonicPage } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { NavController, IonicPage, ToastController } from 'ionic-angular';
+import { AngularFireAuth } from '../../../node_modules/angularfire2/auth';
 
 @IonicPage()
 @Component({
@@ -8,14 +9,39 @@ import { NavController, IonicPage } from 'ionic-angular';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController) {
+  @ViewChild('usuario') usuario;
+  @ViewChild('password') password;
+
+  constructor(public navCtrl: NavController,
+              public firebaseAuth : AngularFireAuth,
+              public toastCtrl : ToastController) {
 
   }
 
   login(){
-    this.navCtrl.setRoot('CategoriasPage');
+    this.firebaseAuth.auth.signInWithEmailAndPassword(
+      this.usuario.value,
+      this.password.value
+    ).then( () => {
+      console.log(this.firebaseAuth.auth.currentUser.email);
+      this.exibirMensagem('Logado com sucesso');
+    })
+    .catch( (erro:any) => {
+      //login sem sucesso  
+      console.log();
+      this.exibirMensagem('Logado sem sucesso');    
+    });
   }
 
+  exibirMensagem(mensagem : string){
+    let toast = this.toastCtrl.create({
+      duration : 4000, position: 'bottom'
+    })
+    toast.setMessage(mensagem);
+    toast.present();
+  }
 
-
+  registrar(){
+    this.navCtrl.setRoot("CadastroPage");
+  }
 }
