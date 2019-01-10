@@ -41,7 +41,14 @@ export class HomePage {
     toast.present();
   }
 
-  registrar(){
-    this.navCtrl.setRoot("CadastroPage");
+  public cadastrarUsuario(){
+    this.firebaseAuth.auth.createUserWithEmailAndPassword(this.usuario.value, this.password.value)
+      .then(() => {
+        this.exibirMensagem('Usuário criado com sucesso');
+        this.usuario = this.firebaseAuth.auth.currentUser
+      })
+      .catch((erro: any) => {
+        this.exibirMensagem(erro);
+      });
   }
 }

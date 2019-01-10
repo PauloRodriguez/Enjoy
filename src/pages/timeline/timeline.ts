@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { Timeline } from '../../model/timeline';
 import { TimelineService } from '../../service/timeline.service';
 
@@ -21,7 +21,8 @@ export class TimelinePage {
   
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              public timelineService : TimelineService) {
+              public timelineService : TimelineService,
+              public alertCtrl : AlertController) {
   }
 
   ionViewDidLoad() {
@@ -33,5 +34,23 @@ export class TimelinePage {
   
     IrParaDetalhes(t : Timeline){
       this.navCtrl.push('DetalhesPage',{'timeline' : t});
+    }
+
+    match(){
+      const alert = this.alertCtrl.create({
+        title: 'Match Realizado!',
+        subTitle: 'Seu match foi realizado com sucesso',
+        buttons: ['OK']
+      });
+      alert.present();
+    }
+
+    dismatch(){
+      const alert = this.alertCtrl.create({
+        title: 'Match Rejeitado',
+        subTitle: 'O match foi rejeitado com sucesso',
+        buttons: ['OK']
+      });
+      alert.present();
     }
 }

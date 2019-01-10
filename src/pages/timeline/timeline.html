@@ -25,8 +25,8 @@
             {{t.idade}} Anos
           </p>
         </ion-card-content>
-        <ion-icon ios="ios-heart" md="md-heart" id="coracao" color="danger"></ion-icon>
-        <ion-icon ios="ios-close-circle" id="circulo" md="md-close-circle"></ion-icon>
+        <ion-icon ios="ios-heart" md="md-heart" id="coracao" color="danger" (click)="match()"></ion-icon>
+        <ion-icon ios="ios-close-circle" id="circulo" md="md-close-circle" (click)="dismatch()"></ion-icon>
         <br>
       </ion-card>
 </ion-content>
